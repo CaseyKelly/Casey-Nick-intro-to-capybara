@@ -47,7 +47,22 @@ describe 'User can CRUD locations' do
   end
 
   scenario 'User can edit a location' do
-    #fill in
+    visit '/'
+    click_on "New Location"
+
+    #filling out form for location
+    fill_in 'location[name]', :with => "Hot Dog"
+    fill_in 'location[address]', with: "New Address"
+    fill_in 'location[zipcode]', with: "90210"
+
+    #submitting form to create a location
+    click_on "Create Location"
+    expect(page).to have_content("Hot Dog")
+    # expecting the flash notification
+    expect(page).to have_content("Location was successfully created")
+    click_on 'Edit'
+    click_on 'Update Location'
+    expect(page).to have_content("Location was successfully updated")
   end
 
 
