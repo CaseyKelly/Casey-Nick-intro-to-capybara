@@ -50,7 +50,17 @@ describe 'User can CRUD events' do
     expect(page).to have_content("Event was successfully updated")
   end
 
+  scenario 'User can delete an event' do
 
+    @location = Location.create(name: "Galvanize", address:"new address", zipcode:"90210")
+
+    @event = Event.create(location_id: @location.id, description: "stuff", date: "08082015", requires_id: false)
+
+    visit "/locations/#{@location.id}/events/#{@event.id}"
+
+    click_on "Delete"
+    expect(page).to have_content("Event was successfully destroyed")
+  end
 
 
 end
