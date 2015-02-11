@@ -29,12 +29,28 @@ describe 'User can CRUD events' do
 
     # click on link to go to new location form
     @location = Location.create(name: "Galvanize", address:"new address", zipcode:"90210")
-  
+
     @event = Event.create(location_id: @location.id, description: "stuff", date: "08082015", requires_id: false)
 
     visit "/locations/#{@location.id}/events/#{@event.id}"
 
     expect(page).to have_content('false')
   end
+
+  scenario 'User can edit an event' do
+
+    @location = Location.create(name: "Galvanize", address:"new address", zipcode:"90210")
+
+    @event = Event.create(location_id: @location.id, description: "stuff", date: "08082015", requires_id: false)
+
+    visit "/locations/#{@location.id}/events/#{@event.id}"
+
+    click_on "Edit Event"
+    click_on "Update Event"
+    expect(page).to have_content("Event was successfully updated")
+  end
+
+
+
 
 end
